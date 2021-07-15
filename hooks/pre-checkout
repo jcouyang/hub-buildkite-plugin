@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+HOOKS_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+cd "${HOOKS_DIR}/.."
+
+OS=${BUILDKITE_PLUGIN_HUB_OS:-"linux"}
+
+if ! which hub &>/dev/null; then
+  curl -L https://github.com/github/hub/releases/download/v2.14.2/hub-${OS}-amd64-2.14.2.tgz | tar --extract --strip-components 1
+fi
+
+cd -
